@@ -4,11 +4,12 @@
   "description": "wowoqu note",
   "main": "index.js",
   "scripts": {
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
   },
-  "keywords": [],
+  "keywords": [
+    "个人笔记"
+  ],
   "author": "wowoqu",
   "license": "ISC",
   "devDependencies": {
