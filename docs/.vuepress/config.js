@@ -1,4 +1,5 @@
 module.exports = {
+    base: '/blogs/',
     title: 'wowoqu的博客',
     description: '技术不完全指北手册',
     head: [
