@@ -12,8 +12,24 @@ module.exports = {
             { text: 'Linux', link: '/linux/' },
             { text: 'GitHub', link: 'https://github.com/wowoqu' }
         ],
-        sidebar: 'auto',
-        lastUpdated: 'Last Updated', // 最后更新时间
-        smoothScroll: true,  // 页面滚动
+        sidebar: {
+            '/linux/': [
+                {
+                    title: '基础',
+                    collapsable: false,
+                    children: [
+                        '',
+                        'Catalog'
+                    ],
+                },
+                // {
+                //     title: '进阶',
+                //     collapsable: false,
+                //     children: ['Catalog'],
+                // },
+            ],
+        },
+        lastUpdated: 'Last Updated',
+        smoothScroll: true
     }
 }
