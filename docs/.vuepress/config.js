@@ -9,7 +9,14 @@ module.exports = {
         logo: '/images/logo/panda.png',
         nav: [
             { text: '首页', link: '/' },
-            { text: 'Linux', link: '/linux/' },
+            {
+                text: 'Linux',
+                items: [
+                    { text: 'Linux', link: '/linux/' },
+                    { text: 'Shell', link: '/shell/' },
+                    { text: 'Vim', link: '/vim/' }
+                ]
+            },
             { text: 'GitHub', link: 'https://github.com/wowoqu' }
         ],
         sidebar: {
@@ -20,15 +27,46 @@ module.exports = {
                     children: [
                         '',
                         'Catalog',
-                        'BaseCommand'
+                        'BaseCommand',
+                        'AdvanceCommand'
                     ],
                 },
-                // {
-                //     title: '进阶',
-                //     collapsable: false,
-                //     children: ['Catalog'],
-                // },
+                {
+                    title: '进阶',
+                    collapsable: false,
+                    children: [
+                        'Extend',
+                        'RunMode',
+                        'UserManagement',
+                        'UserGroupManagement',
+                        'NetWorkSetting',
+                        'BootOption',
+                        'NtpService',
+                        'FireWall',
+                        'PackageManagement',
+                        'Cron',
+                        'Permission'
+                    ],
+                },
             ],
+            '/shell/': [
+                {
+                    title: '基础',
+                    collapsable: false,
+                    children: [
+                        '',
+                    ],
+                }
+            ],
+            '/vim/': [
+                {
+                    title: '基础',
+                    collapsable: false,
+                    children: [
+                        '',
+                    ],
+                }
+            ]
         },
         lastUpdated: 'Last Updated',
         smoothScroll: true
