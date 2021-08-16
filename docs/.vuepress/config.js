@@ -17,6 +17,7 @@ module.exports = {
                     { text: 'Vim', link: '/vim/' }
                 ]
             },
+            { text: 'Docker', link: '/docker/' },
             { text: 'GitHub', link: 'https://github.com/wowoqu' }
         ],
         sidebar: {
@@ -28,7 +29,8 @@ module.exports = {
                         '',
                         'Catalog',
                         'BaseCommand',
-                        'AdvanceCommand'
+                        'AdvanceCommand',
+                        'ExpertCommand'
                     ],
                 },
                 {
