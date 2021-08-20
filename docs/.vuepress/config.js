@@ -45,6 +45,7 @@ module.exports = {
                         'BootOption',
                         'NtpService',
                         'FireWall',
+                        'Systemd',
                         'PackageManagement',
                         'Cron',
                         'Permission'
