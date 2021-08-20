@@ -50,6 +50,13 @@ module.exports = {
                         'Permission'
                     ],
                 },
+                {
+                    title: '技巧',
+                    collapsable: false,
+                    children: [
+                        'Skill'
+                    ],
+                }
             ],
             '/shell/': [
                 {
