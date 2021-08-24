@@ -1,4 +1,4 @@
-# Systemd
+# Systemd 系统管理
 
 Systemd 是 Linux 系统工具，用来启动守护进程，如今已成为大多数发行版的标准配置。以下介绍一些 systemd 的常用命令
 
