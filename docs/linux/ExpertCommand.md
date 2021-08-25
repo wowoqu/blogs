@@ -50,7 +50,7 @@ whoami(选项)  # 等同于 id -un
 
 **语法**
 ```bash
-ps aux
+ps -aux
 
 ps -ef
 
@@ -77,9 +77,9 @@ ps -ef
 | COMMAND | 产生此进程的命令名。                                         |
 
 **参数说明**
-- a: 显示现行终端机下的所有程序，包括其他用户的程序。
-- u: 以用户为主的格式来显示程序状况。
-- x: 显示所有程序，不以终端机来区分。
+- `-a`: 显示所有终端机下执行的程序，除了阶段作业领导者之外。
+- `-u`: 列出属于该用户的程序的状况，也可使用用户名称来指定。
+- `-x`: 显示所有程序，不以终端机来区分。
 - `-e`: 显示所有程序。
 - `-f`: 显示UID,PPIP,C与STIME栏位。
 
@@ -89,9 +89,75 @@ ps -ef
 
 **语法**
 ```bash
-top
+top # 按 q 键推出
 ```
 ![top 指令](/blogs/images/linux/top.png)
+
+> top - 09:44:56 up 16 days, 21:23,  1 user,  load average: 9.59, 4.75, 1.92
+Tasks: 145 total,   2 running, 143 sleeping,   0 stopped,   0 zombie
+Cpu(s): 99.8%us,  0.1%sy,  0.0%ni,  0.2%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   4147888k total,  2493092k used,  1654796k free,   158188k buffers
+Swap:  5144568k total,       56k used,  5144512k free,  2013180k cached
+
+**说明**
+- top - 09:44:56[当前系统时间],
+- 16 days[系统已经运行了16天],
+- 1 user[个用户当前登录],
+- load average: 9.59, 4.75, 1.92[系统负载，即任务队列的平均长度]
+- Tasks: 145 total[总进程数],
+- 2 running[正在运行的进程数],
+- 143 sleeping[睡眠的进程数],
+- 0 stopped[停止的进程数],
+- 0 zombie[冻结进程数],
+- Cpu(s): 99.8%us[用户空间占用CPU百分比],
+- 0.1%sy[内核空间占用CPU百分比],
+- 0.0%ni[用户进程空间内改变过优先级的进程占用CPU百分比],
+- 0.2%id[空闲CPU百分比], 0.0%wa[等待输入输出的CPU时间百分比],
+- 0.0%hi[],
+- 0.0%st[],
+- Mem: 4147888k total[物理内存总量],
+- 2493092k used[使用的物理内存总量],
+- 1654796k free[空闲内存总量],
+- 158188k buffers[用作内核缓存的内存量]
+- Swap:  5144568k total[交换区总量],
+- 56k used[使用的交换区总量],
+- 5144512k free[空闲交换区总量],
+- 2013180k cached[缓冲的交换区总量],
+
+**图表说明**
+| 表头    | 含义                                                         |
+| ------- | :----------------------------------------------------------- |
+| PID     | 进程id                                                       |
+| USER    | 进程所有者                                                   |
+| PR      | 进程优先级                                                   |
+| NI      | nice值。负值表示高优先级，正值表示低优先级                   |
+| VIRT    | 进程使用的虚拟内存总量，单位kb。VIRT=SWAP+RES                |
+| RES     | 进程使用的、未被换出的物理内存大小，单位kb。RES=CODE+DATA    |
+| SHR     | 共享内存大小，单位kb                                         |
+| S       | 进程状态。D=不可中断的睡眠状态 R=运行 S=睡眠 T=跟踪/停止 Z=僵尸进程 |
+| %CPU    | 上次更新到现在的CPU时间占用百分比                           |
+| %MEM    | 进程使用的物理内存百分比                                    |
+| TIME+   | 进程使用的CPU时间总计，单位1/100秒                          |
+| COMMAND | 进程名称（命令名/命令行）                                    |
+
+**交互命令**
+- h：显示帮助画面，给出一些简短的命令总结说明；
+- k：终止一个进程；
+- i：忽略闲置和僵死进程，这是一个开关式命令；
+- q：退出程序；
+- r：重新安排一个进程的优先级别；
+- S：切换到累计模式；
+- s：改变两次刷新之间的延迟时间（单位为s），如果有小数，就换算成ms。输入0值则系统将不断刷新，默认值是5s；
+- f或者F：从当前显示中添加或者删除项目；
+- o或者O：改变显示项目的顺序；
+- l：切换显示平均负载和启动时间信息；
+- m：切换显示内存信息；
+- t：切换显示进程和CPU状态信息；
+- c：切换显示命令名称和完整命令行；
+- M：根据驻留内存大小进行排序；
+- P：根据CPU使用百分比大小进行排序；
+- T：根据时间/累计时间进行排序；
+- w：将当前设置写入~/.toprc文件中。
 
 ## du 指令
 
@@ -107,12 +173,97 @@ top
 
 ## reboot 指令
 
+重新启动计算机
+
+**语法**
+```bash
+reboot
+
+reboot -w  # 模拟重启，但是不重启（只写关机与开机的日志信息）
+```
 ## shutdown 指令
+关机  （慎用）
+
+**语法**
+```bash
+shutdown # 取消 shutdown -C 或者ctrl + c
+
+shutdown -h now # 指定现在立即关机
+
+shutdown -h 15:25 '关机提示' # 15:25 关机并弹出警告‘关机提示’ 
+
+shutdown +5 "System will shutdown after 5 minutes" # 指定5分钟后关机，同时送出警告信息给登入用户：
+```
+
+**参数说明**
+- r：shutdown之后重新启动；
+- h：将系统关机；
 
 ## uptime 指令
 
+输出计算机的持续在线时间（计算机从开机到现在运行的时间）
+
+**语法**
+```bash
+uptime
+
+uptime -V # 显示版本
+```
+![uptime 指令](/blogs/images/linux/uptime.png)
+
 ## uname 指令
 
+获取计算机操作系统相关信息
+
+**语法**
+```bash
+uname 
+
+uname -a
+```
+![uname 指令](/blogs/images/linux/uname.png)
+
+**参数说明**
+- a或--all：显示全部的信息；
 ## netstat 指令
 
+用来打印Linux中网络系统的状态信息，可让你得知整个Linux系统的网络情况。
+
+**语法**
+```bash
+netstat(选项)
+
+netstat -at       #列出所有tcp端口
+netstat -l        #只显示监听端口
+netstat -lt       #只列出所有监听 tcp 端口
+netstat -st       #显示TCP端口的统计信息
+```
+![netstat 指令](/blogs/images/linux/netstat.png)
+
+**参数说明**
+- a或--all：显示所有连线中的Socket；
+- p或--programs：显示正在使用Socket的程序识别码和程序名称；
+- l或--listening：显示监控中的服务器的Socket；
+- n或--numeric：直接使用ip地址，而不通过域名服务器；
+- t或--tcp：显示TCP传输协议的连线状况；
+
 ## scp 指令
+
+用于在Linux下进行远程拷贝文件的命令
+
+**语法**
+```bash
+scp(选项)(参数)
+
+# 从远处复制文件到本地目录
+scp root@10.10.10.10:/opt/soft/nginx-0.5.38.tar.gz /opt/soft/
+
+# 从远处复制到本地
+scp -r root@10.10.10.10:/opt/soft/mongodb /opt/soft/
+
+# 上传本地文件到远程机器指定目录
+scp /opt/soft/nginx-0.5.38.tar.gz root@10.10.10.10:/opt/soft/scptest
+
+# 上传本地目录到远程机器指定目录
+scp -r /opt/soft/mongodb root@10.10.10.10:/opt/soft/scptest
+```
