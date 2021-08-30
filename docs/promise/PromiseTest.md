@@ -55,3 +55,94 @@ new Promise(resolve => {
 }).then(t => console.log(t));
 console.log(3);
 ```
+
+**3. 说出以下打印顺序**
+```js
+const promise = new Promise((resolve, reject) => {
+    console.log(1);
+    resolve();
+    console.log(2);
+    reject('error');
+})
+promise.then(() => {
+    console.log(3);
+}).catch(e => console.log(e))
+console.log(4);
+```
+
+**4. 说出以下打印顺序**
+```js
+const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        console.log('once')
+        resolve('success')
+    }, 1000)
+})
+promise.then((res) => {
+    console.log(res)
+})
+promise.then((res) => {
+    console.log(res)
+})
+```
+
+**5. 说出以下打印顺序**
+```js
+const p1 = () => (new Promise((resolve, reject) => {
+    console.log(1);
+    let p2 = new Promise((resolve, reject) => {
+        console.log(2);
+        const timeOut1 = setTimeout(() => {
+            console.log(3);
+            resolve(4);
+        }, 0)
+        resolve(5);
+    });
+    resolve(6);
+    p2.then((arg) => {
+        console.log(arg);
+    });
+
+}));
+const timeOut2 = setTimeout(() => {
+    console.log(8);
+    const p3 = new Promise(reject => {
+        reject(9);
+    }).then(res => {
+        console.log(res)
+    })
+}, 0)
+
+
+p1().then((arg) => {
+    console.log(arg);
+});
+console.log(10);
+```
+
+**6. 说出以下代码运行结果**
+```js
+Promise.resolve().then(() => {
+    console.log('promise1');
+    const timer2 = setTimeout(() => {
+        console.log('timer2');
+    }, 0)
+})
+
+const timer1 = setTimeout(() => {
+    console.log('timer1');
+    Promise.resolve().then(() => {
+        console.log('promise2');
+    })
+}, 0)
+
+console.log('start');
+```
+
+**7. 说出以下代码运行结果**
+```js
+Promise.resolve(1)
+.then(2)
+.then(Promise.resolve(3))
+.then(console.log);
+```
