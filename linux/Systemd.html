@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Systemd 系统管理 | wowoqu的博客</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/blogs/images/logo/panda.png">
+    <meta name="description" content="技术不完全指北手册">
+    
+    <link rel="preload" href="/blogs/assets/css/0.styles.7f314dd1.css" as="style"><link rel="preload" href="/blogs/assets/js/app.0e5649ea.js" as="script"><link rel="preload" href="/blogs/assets/js/2.9858e944.js" as="script"><link rel="preload" href="/blogs/assets/js/24.7950a580.js" as="script"><link rel="prefetch" href="/blogs/assets/js/10.6a95d1ac.js"><link rel="prefetch" href="/blogs/assets/js/11.f122dbaa.js"><link rel="prefetch" href="/blogs/assets/js/12.a0234d27.js"><link rel="prefetch" href="/blogs/assets/js/13.07d2f5a8.js"><link rel="prefetch" href="/blogs/assets/js/14.f3c6ca05.js"><link rel="prefetch" href="/blogs/assets/js/15.10055607.js"><link rel="prefetch" href="/blogs/assets/js/16.cb904769.js"><link rel="prefetch" href="/blogs/assets/js/17.8fdfa7a7.js"><link rel="prefetch" href="/blogs/assets/js/18.1b3ae4b5.js"><link rel="prefetch" href="/blogs/assets/js/19.dbfe90f1.js"><link rel="prefetch" href="/blogs/assets/js/20.88442ff2.js"><link rel="prefetch" href="/blogs/assets/js/21.9dc3e600.js"><link rel="prefetch" href="/blogs/assets/js/22.d53a8053.js"><link rel="prefetch" href="/blogs/assets/js/23.95679025.js"><link rel="prefetch" href="/blogs/assets/js/25.6600a97a.js"><link rel="prefetch" href="/blogs/assets/js/26.6ddf4b42.js"><link rel="prefetch" href="/blogs/assets/js/27.2ce909b0.js"><link rel="prefetch" href="/blogs/assets/js/28.b04654c0.js"><link rel="prefetch" href="/blogs/assets/js/29.ff31abe2.js"><link rel="prefetch" href="/blogs/assets/js/3.88c3d22f.js"><link rel="prefetch" href="/blogs/assets/js/30.d5767a77.js"><link rel="prefetch" href="/blogs/assets/js/31.9f2bc950.js"><link rel="prefetch" href="/blogs/assets/js/4.fa83c5fa.js"><link rel="prefetch" href="/blogs/assets/js/5.9c192d2d.js"><link rel="prefetch" href="/blogs/assets/js/6.744a911e.js"><link rel="prefetch" href="/blogs/assets/js/7.43996d55.js"><link rel="prefetch" href="/blogs/assets/js/8.177ef4b4.js"><link rel="prefetch" href="/blogs/assets/js/9.597852c6.js">
+    <link rel="stylesheet" href="/blogs/assets/css/0.styles.7f314dd1.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/blogs/" class="home-link router-link-active"><img src="/blogs/images/logo/panda.png" alt="wowoqu的博客" class="logo"> <span class="site-name can-hide">wowoqu的博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/blogs/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Linux" class="dropdown-title"><span class="title">Linux</span> <span class="arrow down"></span></button> <button type="button" aria-label="Linux" class="mobile-dropdown-title"><span class="title">Linux</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blogs/linux/" class="nav-link router-link-active">
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/blogs/shell/" class="nav-link">
+  Shell
+</a></li><li class="dropdown-item"><!----> <a href="/blogs/vim/" class="nav-link">
+  Vim
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Javascript" class="dropdown-title"><span class="title">Javascript</span> <span class="arrow down"></span></button> <button type="button" aria-label="Javascript" class="mobile-dropdown-title"><span class="title">Javascript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blogs/promise/" class="nav-link">
+  Promise
+</a></li></ul></div></div><div class="nav-item"><a href="/blogs/docker/" class="nav-link">
+  Docker
+</a></div><div class="nav-item"><a href="https://github.com/wowoqu" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/blogs/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Linux" class="dropdown-title"><span class="title">Linux</span> <span class="arrow down"></span></button> <button type="button" aria-label="Linux" class="mobile-dropdown-title"><span class="title">Linux</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blogs/linux/" class="nav-link router-link-active">
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/blogs/shell/" class="nav-link">
+  Shell
+</a></li><li class="dropdown-item"><!----> <a href="/blogs/vim/" class="nav-link">
+  Vim
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Javascript" class="dropdown-title"><span class="title">Javascript</span> <span class="arrow down"></span></button> <button type="button" aria-label="Javascript" class="mobile-dropdown-title"><span class="title">Javascript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blogs/promise/" class="nav-link">
+  Promise
+</a></li></ul></div></div><div class="nav-item"><a href="/blogs/docker/" class="nav-link">
+  Docker
+</a></div><div class="nav-item"><a href="https://github.com/wowoqu" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>基础</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/blogs/linux/" aria-current="page" class="sidebar-link">介绍</a></li><li><a href="/blogs/linux/Catalog.html" class="sidebar-link">Liunx目录</a></li><li><a href="/blogs/linux/BaseCommand.html" class="sidebar-link">基础指令</a></li><li><a href="/blogs/linux/AdvanceCommand.html" class="sidebar-link">进阶指令</a></li><li><a href="/blogs/linux/ExpertCommand.html" class="sidebar-link">高级指令</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>进阶</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/blogs/linux/Extend.html" class="sidebar-link">扩展内容</a></li><li><a href="/blogs/linux/RunMode.html" class="sidebar-link">运行模式</a></li><li><a href="/blogs/linux/UserManagement.html" class="sidebar-link">用户管理</a></li><li><a href="/blogs/linux/UserGroupManagement.html" class="sidebar-link">用户组管理</a></li><li><a href="/blogs/linux/NetWorkSetting.html" class="sidebar-link">网络设置</a></li><li><a href="/blogs/linux/BootOption.html" class="sidebar-link">开机启动项</a></li><li><a href="/blogs/linux/NtpService.html" class="sidebar-link">ntp 服务</a></li><li><a href="/blogs/linux/FireWall.html" class="sidebar-link">Firewall 设置</a></li><li><a href="/blogs/linux/Systemd.html" aria-current="page" class="active sidebar-link">Systemd 系统管理</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blogs/linux/Systemd.html#systemctl" class="sidebar-link">systemctl</a></li><li class="sidebar-sub-header"><a href="/blogs/linux/Systemd.html#systemd-analyze" class="sidebar-link">systemd-analyze</a></li><li class="sidebar-sub-header"><a href="/blogs/linux/Systemd.html#hostnamectl" class="sidebar-link">hostnamectl</a></li><li class="sidebar-sub-header"><a href="/blogs/linux/Systemd.html#timedatectl" class="sidebar-link">timedatectl</a></li><li class="sidebar-sub-header"><a href="/blogs/linux/Systemd.html#loginctl" class="sidebar-link">loginctl</a></li><li class="sidebar-sub-header"><a href="/blogs/linux/Systemd.html#journalctl" class="sidebar-link">journalctl</a></li></ul></li><li><a href="/blogs/linux/PackageManagement.html" class="sidebar-link">软件包管理</a></li><li><a href="/blogs/linux/Cron.html" class="sidebar-link">计划任务</a></li><li><a href="/blogs/linux/Permission.html" class="sidebar-link">权限</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>技巧</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/blogs/linux/Skill.html" class="sidebar-link">服务器运维の骚操作</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="systemd-系统管理"><a href="#systemd-系统管理" class="header-anchor">#</a> Systemd 系统管理</h1> <p>Systemd 是 Linux 系统工具，用来启动守护进程，如今已成为大多数发行版的标准配置。以下介绍一些 systemd 的常用命令</p> <h2 id="systemctl"><a href="#systemctl" class="header-anchor">#</a> systemctl</h2> <p><code>systemctl</code> 是 Systemd 的主命令，用于管理系统。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 重启系统</span>
+systemctl <span class="token function">reboot</span>
+
+<span class="token comment"># 关闭系统，切断电源</span>
+systemctl poweroff
+
+<span class="token comment"># CPU停止工作</span>
+systemctl <span class="token function">halt</span>
+
+<span class="token comment"># 暂停系统</span>
+systemctl <span class="token function">suspend</span>
+
+<span class="token comment"># 让系统进入冬眠状态</span>
+systemctl hibernate
+
+<span class="token comment"># 让系统进入交互式休眠状态</span>
+systemctl hybrid-sleep
+
+<span class="token comment"># 启动进入救援状态（单用户状态）</span>
+systemctl rescue
+
+
+<span class="token comment"># 服务相关</span>
+
+systemctl <span class="token builtin class-name">enable</span> httpd.service  <span class="token comment"># 使某服务自动启动</span>
+
+systemctl disable httpd.service  <span class="token comment"># 使某服务不自动启动	 	</span>
+
+systemctl status httpd.service  <span class="token comment"># 检查服务状态（服务详细信息） </span>
+
+systemctl is-active httpd.service  <span class="token comment"># 仅显示是否 Active</span>
+
+systemctl list-units  <span class="token comment"># 列出正在运行的 Unit</span>
+
+systemctl list-units -all  <span class="token comment"># 显示所有的服务</span>
+
+systemctl list-units --type<span class="token operator">=</span>service  <span class="token comment"># 显示所有已启动的服务</span>
+
+systemctl start httpd.service  <span class="token comment"># 启动某服务</span>
+
+systemctl stop httpd.service  <span class="token comment"># 停止某服务</span>
+
+systemctl restart httpd.service  <span class="token comment"># 重启某服务</span>
+
+systemctl reload apache.service  <span class="token comment"># 重新加载一个服务的配置文件</span>
+
+systemctl <span class="token function">kill</span> apache.service  <span class="token comment"># 杀死一个服务的所有子进程</span>
+
+systemctl daemon-reload  <span class="token comment"># 重载所有修改过的配置文件</span>
+
+systemctl list-dependencies docker.service  <span class="token comment"># 查看依赖关系</span>
+
+systemctl list-unit-files  <span class="token comment"># 列出所有配置文件</span>
+
+systemctl <span class="token function">cat</span> docker.service  <span class="token comment"># 查看配置文件</span>
+</code></pre></div><h2 id="systemd-analyze"><a href="#systemd-analyze" class="header-anchor">#</a> systemd-analyze</h2> <p><code>systemd-analyze</code> 命令用于查看启动耗时。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 查看启动耗时</span>
+systemd-analyze                                                                                       
+
+<span class="token comment"># 查看每个服务的启动耗时</span>
+systemd-analyze blame
+
+<span class="token comment"># 显示瀑布状的启动过程流</span>
+systemd-analyze critical-chain
+
+<span class="token comment"># 显示指定服务的启动流</span>
+systemd-analyze critical-chain atd.service
+</code></pre></div><h2 id="hostnamectl"><a href="#hostnamectl" class="header-anchor">#</a> hostnamectl</h2> <p><code>hostnamectl</code> 命令用于查看当前主机的信息。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 显示当前主机的信息</span>
+hostnamectl
+
+<span class="token comment"># 设置主机名。</span>
+hostnamectl set-hostname rhel7
+</code></pre></div><h2 id="timedatectl"><a href="#timedatectl" class="header-anchor">#</a> timedatectl</h2> <p><code>timedatectl</code> 命令用于查看当前时区设置。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 查看当前时区设置</span>
+timedatectl
+
+<span class="token comment"># 显示所有可用的时区</span>
+timedatectl list-timezones                                                                                   
+
+<span class="token comment"># 设置当前时区</span>
+timedatectl set-timezone America/New_York
+timedatectl set-time YYYY-MM-DD
+timedatectl set-time HH:MM:SS
+</code></pre></div><h2 id="loginctl"><a href="#loginctl" class="header-anchor">#</a> loginctl</h2> <p><code>loginctl</code> 命令用于查看当前登录的用户。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 列出当前session</span>
+loginctl list-sessions
+
+<span class="token comment"># 列出当前登录用户</span>
+loginctl list-users
+
+<span class="token comment"># 列出显示指定用户的信息</span>
+loginctl show-user ruanyf
+</code></pre></div><h2 id="journalctl"><a href="#journalctl" class="header-anchor">#</a> journalctl</h2> <p>Systemd 统一管理所有 Unit 的启动日志。带来的好处就是，可以只用 <code>journalctl</code> 一个命令，查看所有日志（内核日志和应用日志）。日志的配置文件是 <code>/etc/systemd/journald.conf</code> 。</p> <p><code>journalctl</code> 功能强大，用法非常多。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 查看所有日志（默认情况下 ，只保存本次启动的日志）</span>
+journalctl
+
+<span class="token comment"># 查看内核日志（不显示应用日志）</span>
+journalctl -k
+
+<span class="token comment"># 查看系统本次启动的日志</span>
+journalctl -b
+journalctl -b -0
+
+<span class="token comment"># 查看上一次启动的日志（需更改设置）</span>
+journalctl -b -1
+
+<span class="token comment"># 查看指定时间的日志</span>
+journalctl --since<span class="token operator">=</span><span class="token string">&quot;2012-10-30 18:17:16&quot;</span>
+journalctl --since <span class="token string">&quot;20 min ago&quot;</span>
+journalctl --since yesterday
+journalctl --since <span class="token string">&quot;2015-01-10&quot;</span> --until <span class="token string">&quot;2015-01-11 03:00&quot;</span>
+journalctl --since 09:00 --until <span class="token string">&quot;1 hour ago&quot;</span>
+
+<span class="token comment"># 显示尾部的最新10行日志</span>
+journalctl -n
+
+<span class="token comment"># 显示尾部指定行数的日志</span>
+journalctl -n <span class="token number">20</span>
+
+<span class="token comment"># 实时滚动显示最新日志</span>
+journalctl -f
+
+<span class="token comment"># 查看指定服务的日志</span>
+journalctl /usr/lib/systemd/systemd
+
+<span class="token comment"># 查看指定进程的日志</span>
+journalctl <span class="token assign-left variable">_PID</span><span class="token operator">=</span><span class="token number">1</span>
+
+<span class="token comment"># 查看某个路径的脚本的日志</span>
+journalctl /usr/bin/bash
+
+<span class="token comment"># 查看指定用户的日志</span>
+journalctl <span class="token assign-left variable">_UID</span><span class="token operator">=</span><span class="token number">33</span> --since today
+
+<span class="token comment"># 查看某个 Unit 的日志</span>
+journalctl -u nginx.service
+journalctl -u nginx.service --since today
+
+<span class="token comment"># 实时滚动显示某个 Unit 的最新日志</span>
+journalctl -u nginx.service -f
+
+<span class="token comment"># 合并显示多个 Unit 的日志</span>
+journalctl -u nginx.service -u php-fpm.service --since today
+
+<span class="token comment"># 查看指定优先级（及其以上级别）的日志，共有8级</span>
+<span class="token comment"># 0: emerg</span>
+<span class="token comment"># 1: alert</span>
+<span class="token comment"># 2: crit</span>
+<span class="token comment"># 3: err</span>
+<span class="token comment"># 4: warning</span>
+<span class="token comment"># 5: notice</span>
+<span class="token comment"># 6: info</span>
+<span class="token comment"># 7: debug</span>
+journalctl -p err -b
+
+<span class="token comment"># 日志默认分页输出，--no-pager 改为正常的标准输出</span>
+journalctl --no-pager
+
+<span class="token comment"># 以 JSON 格式（单行）输出</span>
+journalctl -b -u nginx.service -o json
+
+<span class="token comment"># 以 JSON 格式（多行）输出，可读性更好</span>
+journalctl -b -u nginx.serviceqq
+ -o json-pretty
+
+<span class="token comment"># 显示日志占据的硬盘空间</span>
+journalctl --disk-usage
+
+<span class="token comment"># 指定日志文件占据的最大空间</span>
+journalctl --vacuum-size<span class="token operator">=</span>1G
+
+<span class="token comment"># 指定日志文件保存多久</span>
+journalctl --vacuum-time<span class="token operator">=</span>1years
+</code></pre></div><p><a href="https://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-commands.html" target="_blank" rel="noopener noreferrer">原文链接: 阮一峰: Systemd 入门教程：命令篇<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">8/24/2021, 5:21:54 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/blogs/linux/FireWall.html" class="prev">
+        Firewall 设置
+      </a></span> <span class="next"><a href="/blogs/linux/PackageManagement.html">
+        软件包管理
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/blogs/assets/js/app.0e5649ea.js" defer></script><script src="/blogs/assets/js/2.9858e944.js" defer></script><script src="/blogs/assets/js/24.7950a580.js" defer></script>
+  </body>
+</html>
