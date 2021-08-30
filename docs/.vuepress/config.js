@@ -17,6 +17,12 @@ module.exports = {
                     { text: 'Vim', link: '/vim/' }
                 ]
             },
+            { 
+                text: 'Javascript',
+                items: [
+                    { text: 'Promise', link: '/promise/' },
+                ]
+            },
             { text: 'Docker', link: '/docker/' },
             { text: 'GitHub', link: 'https://github.com/wowoqu' }
         ],
@@ -76,6 +82,17 @@ module.exports = {
                         '',
                     ],
                 }
+            ],
+            '/promise/': [
+                {
+                    title: 'Promise',
+                    collapsable: false,
+                    children: [
+                        '',
+                        'PromiseSourceCode',
+                        'PromiseTest'
+                    ],
+                },
             ]
         },
         lastUpdated: 'Last Updated',
